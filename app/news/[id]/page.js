@@ -70,13 +70,9 @@ export default function NewsDetail() {
               <CalendarDays size={14} />
               {newsItem.date}
             </span>
-            <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-            <span className="px-3 py-1 bg-slate-100 rounded-full text-slate-600">
-              {newsItem.category}
-            </span>
           </div>
 
-          <h1 className="text-4xl font-black text-slate-900 leading-[1.5] mb-8">
+          <h1 className="text-2xl md:text-4xl font-black text-slate-900 leading-[1.5] mb-8">
             {newsItem.title}
           </h1>
 
@@ -130,7 +126,7 @@ export default function NewsDetail() {
         </div>
 
         {/* Article Content */}
-        <div className="prose prose-lg prose-slate max-w-none mb-16 font-light leading-loose text-slate-600 text-[24px]">
+        <div className="prose prose-lg prose-slate max-w-none mb-16 font-light text-slate-600 text-[18px] md:text-[24px]">
           {/* Note: In a real app, this would probably be dangerous HTML or rich text. 
                  Since we just have a summary for now, we'll repeat it as a placeholder for full content 
                  to simulate a real article body. */}
