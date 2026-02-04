@@ -101,7 +101,7 @@ export default function GalleryClient() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative pt-40 pb-20 lg:pt-56 lg:pb-32 bg-white overflow-hidden"
+        className="relative pt-40 pb-10 lg:pt-56 lg:pb-32 bg-white overflow-hidden"
       >
         <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden">
           <div className="absolute -top-[10%] -right-[5%] w-[600px] h-[600px] bg-amber-50 rounded-full blur-[100px] opacity-60 mix-blend-multiply"></div>
@@ -116,7 +116,7 @@ export default function GalleryClient() {
                 : "translate-y-20 opacity-0"
             }`}
           >
-            <div className="inline-flex items-center gap-4 mb-8">
+            <div className="inline-flex items-center gap-4 mb-4">
               <span className="h-px w-12 bg-amber-500"></span>
               <span className="text-amber-600 text-xs font-bold tracking-[0.5em] uppercase">
                 Photo Gallery
@@ -124,7 +124,7 @@ export default function GalleryClient() {
               <span className="h-px w-12 bg-amber-500"></span>
             </div>
 
-            <h1 className="text-6xl lg:text-8xl font-bold text-slate-900 mb-8 leading-[0.9] tracking-tight">
+            <h1 className="text-4xl md:text-8xl font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight">
               Moments of <br />
               <span className="text-transparent font-black bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">
                 Leadership.

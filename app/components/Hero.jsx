@@ -20,7 +20,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative w-full min-h-dvh px-4 md:px-6 lg:min-h-screen lg:h-screen h-auto pt-10 pb-12 lg:pt-32 lg:pb-0 overflow-hidden bg-white flex flex-col justify-center">
+    <section className="relative w-full min-h-dvh px-0 md:px-6 lg:min-h-screen lg:h-screen h-auto pt-10 pb-12 lg:pt-32 lg:pb-0 overflow-hidden bg-white flex flex-col justify-center">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[50%] h-full bg-linear-to-bl from-rose-50/50 via-white to-transparent -z-10"></div>
       <div className="absolute top-20 left-10 w-96 h-96 bg-gold/5 rounded-full blur-3xl -z-10 animate-pulse"></div>
@@ -59,7 +59,7 @@ export default function Hero() {
         >
           {/* Heading */}
           <div className="space-y-6 text-center lg:text-left">
-            <h1 className="text-5xl md:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight">
+            <h1 className="text-4xl md:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight">
               Empowering <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-600">
                 People Through

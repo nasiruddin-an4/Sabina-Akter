@@ -67,7 +67,7 @@ export default function ContactClient() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative pt-40 pb-16 lg:pt-48 lg:pb-20 bg-white overflow-hidden"
+        className="relative pt-40 pb-10 lg:pt-48 lg:pb-20 bg-white overflow-hidden"
       >
         <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden">
           <div className="absolute -top-[10%] -right-[5%] w-[600px] h-[600px] bg-amber-50 rounded-full blur-[100px] opacity-60 mix-blend-multiply"></div>
@@ -106,12 +106,12 @@ export default function ContactClient() {
       </section>
 
       {/* Form Section */}
-      <section className="py-16 lg:py-24 px-6">
+      <section className="py-16 lg:py-24 px-0 md:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-5">
-              {/* Left: Contact Information */}
-              <div className="lg:col-span-2 bg-slate-900 p-10 lg:p-12 text-white relative overflow-hidden">
+              {/* Left: Contact Information - Shows AFTER form on mobile */}
+              <div className="order-2 lg:order-1 lg:col-span-2 bg-slate-900 p-10 lg:p-12 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-amber-600/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
 
                 <div className="relative z-10">
@@ -148,7 +148,7 @@ export default function ContactClient() {
                           Office
                         </p>
                         <p className="text-white leading-relaxed">
-                          Level 6, 59 & 61, South Avenue,
+                          Level 6, 59 &amp; 61, South Avenue,
                           <br />
                           Lotus Kamal Tower-2, Gulshan Ave,
                           <br />
@@ -159,7 +159,7 @@ export default function ContactClient() {
                   </div>
 
                   {/* Quote */}
-                  <div className="mt-auto pt-20">
+                  <div className="mt-auto pt-20 hidden lg:block">
                     <p className="text-slate-400 italic text-sm leading-relaxed">
                       &quot;Time is the most valuable asset. Let&apos;s make the
                       most of it together.&quot;
@@ -168,8 +168,8 @@ export default function ContactClient() {
                 </div>
               </div>
 
-              {/* Right: Form */}
-              <div className="lg:col-span-3 p-10 lg:p-12">
+              {/* Right: Form - Shows FIRST on mobile */}
+              <div className="order-1 lg:order-2 lg:col-span-3 p-10 lg:p-12">
                 {submitted ? (
                   <div className="h-full flex flex-col items-center justify-center text-center py-16">
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6">
