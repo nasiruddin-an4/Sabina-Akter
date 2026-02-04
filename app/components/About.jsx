@@ -1,12 +1,5 @@
 "use client";
-import {
-  FaUsers,
-  FaGlobe,
-  FaCheckCircle,
-  FaAward,
-  FaCalendarAlt,
-  FaBriefcase,
-} from "react-icons/fa";
+import { FaUsers, FaGlobe, FaCalendarAlt, FaBriefcase } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 
 export default function About() {
@@ -29,24 +22,12 @@ export default function About() {
       color: "text-brand-bright-orange",
     },
     {
-      icon: FaCheckCircle,
-      value: "1200+",
-      label: "Empowerment",
-      color: "text-brand-bright-orange",
-    },
-    {
-      icon: FaCalendarAlt,
-      value: "10+",
-      label: "Years Experience",
-      color: "text-brand-bright-orange",
-    },
-    {
       type: "combined",
       items: [
         {
-          icon: FaAward,
-          value: "20+",
-          label: "Awards",
+          icon: FaCalendarAlt,
+          value: "10+",
+          label: "Experience",
           color: "text-brand-bright-orange",
         },
         {

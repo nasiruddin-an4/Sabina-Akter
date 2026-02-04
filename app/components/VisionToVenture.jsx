@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FaTrophy, FaPlay } from "react-icons/fa";
+import Image from "next/image";
+import { FaPlay } from "react-icons/fa";
 
 export default function VisionToVenture() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -38,7 +39,7 @@ export default function VisionToVenture() {
             {isPlaying ? (
               <iframe
                 className="w-full h-full absolute inset-0"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
+                src="https://www.youtube.com/embed/r2nfZB5Q5Bs?autoplay=1&rel=0"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -46,17 +47,17 @@ export default function VisionToVenture() {
               ></iframe>
             ) : (
               <div
-                className="absolute inset-0 bg-slate-900 cursor-pointer"
+                className="absolute inset-0 cursor-pointer"
                 onClick={() => setIsPlaying(true)}
               >
-                {/* Background Image/Placeholder */}
-                <div className="absolute inset-0 bg-linear-to-br from-slate-800 to-slate-900 flex items-center justify-center overflow-hidden">
-                  {/* Abstract Background Element */}
-                  <div className="absolute top-0 right-0 w-full h-full opacity-30">
-                    <div className="absolute right-0 top-0 bg-blue-500 w-64 h-64 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-                    <div className="absolute left-0 bottom-0 bg-amber-500 w-64 h-64 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-                  </div>
-                </div>
+                {/* YouTube Thumbnail */}
+                <Image
+                  src="https://img.youtube.com/vi/r2nfZB5Q5Bs/maxresdefault.jpg"
+                  alt="Video thumbnail"
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>

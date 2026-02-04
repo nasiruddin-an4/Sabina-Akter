@@ -15,7 +15,7 @@ export default function Hero() {
       icon: FaLinkedinIn,
       link: "https://www.linkedin.com/company/betopiagroup/posts/?feedView=all",
     },
-    { icon: FaYoutube, link: "https://www.youtube.com/" },
+    { icon: FaYoutube, link: "https://www.youtube.com/@BetopiaGroup" },
     { icon: FaTwitter, link: "https://twitter.com/yourprofile" },
   ];
 
