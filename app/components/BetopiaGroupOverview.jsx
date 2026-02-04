@@ -36,7 +36,10 @@ export default function BetopiaGroupOverview() {
   });
 
   return (
-    <section ref={ref} className="py-24 bg-white relative overflow-hidden">
+    <section
+      ref={ref}
+      className="py-24 bg-white relative overflow-hidden px-2 md:px-6 lg:px-0"
+    >
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 bg-slate-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>

@@ -1,7 +1,12 @@
 "use client";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
-import { FaUsers, FaRocket, FaHandHoldingHeart, FaBullseye } from "react-icons/fa";
+import {
+  FaUsers,
+  FaRocket,
+  FaHandHoldingHeart,
+  FaBullseye,
+} from "react-icons/fa";
 import Image from "next/image";
 
 export default function Vision() {
@@ -11,7 +16,10 @@ export default function Vision() {
   });
 
   return (
-    <section id="vision" className="relative py-32 bg-slate-950 overflow-hidden text-white">
+    <section
+      id="vision"
+      className="relative py-32 bg-slate-950 overflow-hidden text-white px-2 md:px-6 lg:px-0"
+    >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
@@ -30,9 +38,7 @@ export default function Vision() {
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
           {/* Left Content */}
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-lg">
@@ -46,14 +52,19 @@ export default function Vision() {
               Empowering <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">
                 30,000 Talent
-              </span> <br />
-              <span className="text-4xl lg:text-6xl text-white">Within 2030</span>
+              </span>{" "}
+              <br />
+              <span className="text-4xl lg:text-6xl text-white">
+                Within 2030
+              </span>
             </h2>
 
             <p className="text-lg text-slate-300 font-light leading-relaxed max-w-lg drop-shadow-md">
-              A future-ready metropolis of innovation and entrepreneurship. By 2030, our goal is to empower <strong>30,000 Talents</strong>, creating a sustainable ecosystem where human potential meets global opportunity.
+              A future-ready metropolis of innovation and entrepreneurship. By
+              2030, our goal is to empower <strong>30,000 Talents</strong>,
+              creating a sustainable ecosystem where human potential meets
+              global opportunity.
             </p>
-
 
             <div className="pt-8 w-full max-w-sm">
               <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden relative">
@@ -72,14 +83,15 @@ export default function Vision() {
           <div className="relative flex justify-center items-center lg:justify-end">
             {/* Glass Card for Counter */}
             <div className="relative w-[350px] h-[350px] md:w-[450px] md:h-[450px]">
-
               {/* Spinning Rings */}
               <div className="absolute inset-0 rounded-full border border-teal-500/20 animate-spin-slow"></div>
               <div className="absolute inset-4 rounded-full border border-white/10 border-dashed animate-reverse-spin-slow"></div>
 
               {/* Central Circle */}
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 backdrop-blur-xl rounded-full shadow-2xl border border-white/10 p-10 text-center z-10">
-                <span className="text-sm text-slate-400 uppercase tracking-widest mb-2">Impact Goal</span>
+                <span className="text-sm text-slate-400 uppercase tracking-widest mb-2">
+                  Impact Goal
+                </span>
                 <div className="text-9xl font-bold text-white mb-4 font-sans tracking-tighter drop-shadow-lg">
                   {inView ? <CountUp end={30} duration={3} /> : "0"}
                   <span className="text-teal-400">k</span>
@@ -95,7 +107,6 @@ export default function Vision() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

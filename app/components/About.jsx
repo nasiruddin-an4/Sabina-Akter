@@ -41,7 +41,11 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-slate-50 relative" ref={ref}>
+    <section
+      id="about"
+      className="py-24 bg-slate-50 relative px-2 md:px-6 lg:px-0"
+      ref={ref}
+    >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Side: Only Text */}
