@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import {
   FaLinkedinIn,
   FaFacebookF,
@@ -19,12 +20,12 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative w-full min-h-dvh lg:min-h-[85vh] lg:h-[85vh] h-auto pt-10 pb-12 lg:pt-32 lg:pb-0 overflow-hidden bg-white flex flex-col justify-center">
+    <section className="relative w-full min-h-dvh px-4 md:px-6 lg:min-h-screen lg:h-screen h-auto pt-10 pb-12 lg:pt-32 lg:pb-0 overflow-hidden bg-white flex flex-col justify-center">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[50%] h-full bg-linear-to-bl from-rose-50/50 via-white to-transparent -z-10"></div>
       <div className="absolute top-20 left-10 w-96 h-96 bg-gold/5 rounded-full blur-3xl -z-10 animate-pulse"></div>
 
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full py-12 lg:py-0">
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full py-12 lg:py-0">
         {/* Right Side: Image (Ordered First on Mobile) */}
         <div className="order-1 lg:order-2 relative h-[500px] lg:h-[650px] w-full flex justify-center lg:justify-end animate-fade-in-up">
           {/* Background Blob */}
@@ -40,33 +41,14 @@ export default function Hero() {
             />
           </svg>
 
-          <div className="relative h-full w-[98%] lg:w-full rounded-[3rem] overflow-hidden shadow-2xl shadow-slate-200/50 group border-[6px] border-white animate-float">
+          <div className="relative h-full w-[98%] lg:w-full rounded-[3rem] overflow-hidden">
             <Image
               src="/chairman_betopia.webp"
               alt="Sabina Akter - Chairperson"
               fill
-              className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              className="object-cover object-top"
               priority
             />
-
-            {/* Overlay Gradient */}
-            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
-
-            {/* Floating content */}
-            <div className="absolute bottom-4 left-4 right-4 lg:bottom-8 lg:left-8 lg:right-8 text-white">
-              <div className="backdrop-blur-md bg-white/10 border border-white/20 p-4 lg:p-6 rounded-2xl">
-                <p className="font-serif italic text-lg lg:text-xl leading-relaxed mb-4">
-                  "True leadership is about creating a platform where others can
-                  stand tall."
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-12 bg-gold"></div>
-                  <span className="text-xs font-bold tracking-widest text-gold uppercase">
-                    Chairperson, Betopia Group
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -106,7 +88,13 @@ export default function Hero() {
               represents the new era of leadership—combining grace with grit.
               She is dedicated to empowering women and youth, building
               sustainable ecosystems, and driving national growth through the{" "}
-              <span className="text-navy-900 font-medium">Betopia Group</span>.
+              <Link
+                href="https://betopiagroup.com/"
+                target="_blank"
+                className="text-navy-900 font-medium"
+              >
+                Betopia Group.
+              </Link>
             </p>
           </div>
 

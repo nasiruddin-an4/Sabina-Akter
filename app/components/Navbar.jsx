@@ -57,7 +57,7 @@ export default function Navbar() {
             : "bg-transparent py-6"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
           {/* Logo Section */}
           <Link href="/" className="group z-50 relative">
             <div className="flex flex-col">
