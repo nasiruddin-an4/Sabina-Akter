@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import { FaArrowRight, FaCalendarAlt } from "react-icons/fa";
-import newsData from "../data/News.json";
 import Image from "next/image";
 
-const NewsItems = newsData.newsItems;
+export default function NewsSection({ news }) {
+  // Use passed news or empty array
+  const NewsItems = news || [];
 
-export default function NewsSection() {
   return (
     <section
       id="news"
@@ -41,10 +41,10 @@ export default function NewsSection() {
 
         {/* News Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {NewsItems.map((item) => (
+          {NewsItems.slice(0, 3).map((item) => (
             <Link
-              key={item.id}
-              href={`/news/${item.id}`}
+              key={item._id}
+              href={`/news/${item._id}`}
               className="group block h-full"
             >
               <article className="h-full flex flex-col bg-white rounded-[1rem] border border-slate-100 hover:border-slate-200 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
@@ -58,14 +58,20 @@ export default function NewsSection() {
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
                   <span className="absolute top-6 left-6 z-20 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-wider text-white uppercase shadow-lg">
-                    {item.category}
+                    {item.category || "News"}
                   </span>
                 </div>
 
                 <div className="p-8 flex-grow flex flex-col">
                   <div className="flex items-center gap-2 text-[10px] font-bold text-gold uppercase tracking-widest mb-4">
                     <FaCalendarAlt />
-                    <span>{item.date}</span>
+                    <span>
+                      {new Date(item.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 mb-3 leading-snug group-hover:text-gold transition-colors duration-300 line-clamp-2">

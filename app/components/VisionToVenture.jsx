@@ -4,8 +4,28 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 
-export default function VisionToVenture() {
+export default function VisionToVenture({ data }) {
   const [isPlaying, setIsPlaying] = useState(false);
+
+  // Fallback defaults
+  const content = data || {
+    titlePrefix: "From Vision to",
+    titleHighlight: "Venture",
+    description:
+      "Sabina Akter is a firm believer that a disciplined life is the ultimate competitive advantage. She treats her health with the same strategic precision as her business—prioritizing physical fitness and mental clarity to sustain the high-pressure demands of global leadership.",
+    videoUrl: "r2nfZB5Q5Bs", // Default Video ID
+  };
+
+  // Helper to extract YouTube ID if full URL is stored
+  const getYouTubeId = (url) => {
+    if (!url) return "r2nfZB5Q5Bs";
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : url;
+  };
+
+  const videoId = getYouTubeId(content.videoUrl);
 
   return (
     <section className="py-24 bg-white relative overflow-hidden ">
@@ -15,9 +35,9 @@ export default function VisionToVenture() {
           <div className="order-2 lg:order-1">
             {/* Heading */}
             <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight">
-              From Vision to <br />
+              {content.titlePrefix} <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">
-                Venture
+                {content.titleHighlight}
               </span>
             </h2>
 
@@ -25,11 +45,7 @@ export default function VisionToVenture() {
             <div className="flex gap-6">
               <div className="w-1.5 bg-amber-300 shrink-0 self-stretch rounded-full"></div>
               <p className="text-slate-600 text-lg leading-relaxed">
-                Sabina Akter is a firm believer that a disciplined life is the
-                ultimate competitive advantage. She treats her health with the
-                same strategic precision as her business—prioritizing physical
-                fitness and mental clarity to sustain the high-pressure demands
-                of global leadership.
+                {content.description}
               </p>
             </div>
           </div>
@@ -39,7 +55,7 @@ export default function VisionToVenture() {
             {isPlaying ? (
               <iframe
                 className="w-full h-full absolute inset-0"
-                src="https://www.youtube.com/embed/r2nfZB5Q5Bs?autoplay=1&rel=0"
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -52,11 +68,11 @@ export default function VisionToVenture() {
               >
                 {/* YouTube Thumbnail */}
                 <Image
-                  src="https://img.youtube.com/vi/r2nfZB5Q5Bs/maxresdefault.jpg"
+                  src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                   alt="Video thumbnail"
                   fill
                   className="object-cover"
-                  unoptimized
+                  unoptimized // YouTube thumbnails are external
                 />
 
                 {/* Overlay */}

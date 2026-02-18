@@ -1,8 +1,8 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import BackToTop from "./components/BackToTop";
+import LayoutProvider from "./components/LayoutProvider";
+import dbConnect from "@/lib/db";
+import PageContent from "@/models/PageContent";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -16,16 +16,26 @@ export const metadata = {
     "Chairperson, Betopia Group | Champion of Youth & Women's Leadership",
 };
 
-export default function RootLayout({ children }) {
+async function getSiteInfo() {
+  try {
+    await dbConnect();
+    const data = await PageContent.findOne({ key: "site-info" }).lean();
+    return data ? JSON.parse(JSON.stringify(data.data)) : null;
+  } catch (error) {
+    console.error("Failed to fetch site info:", error);
+    return null;
+  }
+}
+
+export default async function RootLayout({ children }) {
+  const siteInfo = await getSiteInfo();
+
   return (
     <html lang="en" className="scroll-smooth">
       <body
         className={`${outfit.variable} font-sans antialiased bg-white text-slate-900 selection:bg-orange-500 selection:text-white`}
       >
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <BackToTop />
+        <LayoutProvider siteInfo={siteInfo}>{children}</LayoutProvider>
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ import {
   FaArrowUp,
 } from "react-icons/fa";
 
-export default function Footer() {
+export default function Footer({ siteInfo }) {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
@@ -61,38 +61,46 @@ export default function Footer() {
 
             {/* Social Icons - Now on the left */}
             <div className="flex gap-4">
-              <a
-                href="https://www.facebook.com/sabina.bdcalling/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                href="https://twitter.com/yourprofile"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/betopiagroup/posts/?feedView=all"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
-              >
-                <FaLinkedinIn />
-              </a>
-              <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
-              >
-                <FaYoutube />
-              </a>
+              {siteInfo?.facebook && (
+                <a
+                  href={siteInfo.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
+                >
+                  <FaFacebookF />
+                </a>
+              )}
+              {siteInfo?.twitter && (
+                <a
+                  href={siteInfo.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
+                >
+                  <FaTwitter />
+                </a>
+              )}
+              {siteInfo?.linkedin && (
+                <a
+                  href={siteInfo.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
+                >
+                  <FaLinkedinIn />
+                </a>
+              )}
+              {siteInfo?.youtube && (
+                <a
+                  href={siteInfo.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-slate-400 hover:bg-brand-bright-orange hover:text-white transition-all duration-300"
+                >
+                  <FaYoutube />
+                </a>
+              )}
             </div>
           </div>
 
@@ -134,42 +142,45 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <h3 className="text-lg font-bold text-white mb-6">Contact Us</h3>
             <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-500 shrink-0 mt-1">
-                  <FaMapMarkerAlt />
+              {siteInfo?.address && (
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center text-blue-500 shrink-0 mt-1">
+                    <FaMapMarkerAlt />
+                  </div>
+                  <div>
+                    <p className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">
+                      Corporate Office
+                    </p>
+                    <a
+                      href={siteInfo.googleMapsUrl || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white text-sm leading-relaxed hover:text-brand-bright-orange transition-colors"
+                    >
+                      {siteInfo.address}
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">
-                    Corporate Office
-                  </p>
-                  <a
-                    href="https://www.google.com/maps/search/?api=1&query=Level+6,+59+%26+61,+South+Avenue,+Lotus+Kamal+Tower-2,+Gulshan+Ave,+Dhaka+1212"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white text-sm leading-relaxed hover:text-brand-bright-orange transition-colors"
-                  >
-                    Level 6, 59 & 61, South Avenue, Lotus Kamal Tower-2, Gulshan
-                    Ave, Dhaka 1212.
-                  </a>
-                </div>
-              </div>
+              )}
 
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center text-purple-500 shrink-0 mt-1">
-                  <FaEnvelope />
+              {siteInfo?.email && (
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center text-purple-500 shrink-0 mt-1">
+                    <FaEnvelope />
+                  </div>
+                  <div>
+                    <p className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">
+                      Email
+                    </p>
+                    <a
+                      href={`mailto:${siteInfo.email}`}
+                      className="text-white text-sm hover:text-brand-bright-orange transition-colors"
+                    >
+                      {siteInfo.email}
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">
-                    Email
-                  </p>
-                  <a
-                    href="mailto:contact@sabinaakter.com"
-                    className="text-white text-sm hover:text-brand-bright-orange transition-colors"
-                  >
-                    contact@sabinaakter.com
-                  </a>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

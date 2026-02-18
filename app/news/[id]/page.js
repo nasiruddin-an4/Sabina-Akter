@@ -1,20 +1,31 @@
-"use client";
-
-import { useParams } from "next/navigation";
+import dbConnect from "@/lib/db";
+import News from "@/models/News";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowLeft,
-  CalendarDays,
-  ExternalLink,
-  Newspaper,
-  Clock,
-} from "lucide-react";
-import newsData from "../../data/News.json";
+import { ArrowLeft, CalendarDays, ExternalLink, Newspaper } from "lucide-react";
 
-export default function NewsDetail() {
-  const params = useParams();
-  const newsItem = newsData.newsItems.find((item) => item.id === params.id);
+async function getNewsItem(id) {
+  await dbConnect();
+  try {
+    const item = await News.findById(id).lean();
+    return item ? JSON.parse(JSON.stringify(item)) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function getRelatedNews(excludeId) {
+  await dbConnect();
+  const items = await News.find({ _id: { $ne: excludeId } })
+    .sort({ createdAt: -1 })
+    .limit(2)
+    .lean();
+  return JSON.parse(JSON.stringify(items));
+}
+
+export default async function NewsDetail({ params }) {
+  const { id } = await params;
+  const newsItem = await getNewsItem(id);
 
   if (!newsItem) {
     return (
@@ -40,6 +51,8 @@ export default function NewsDetail() {
       </div>
     );
   }
+
+  const relatedNews = await getRelatedNews(newsItem._id);
 
   return (
     <main className="min-h-screen bg-white font-sans selection:bg-orange-500 selection:text-white pt-24 pb-20">
@@ -68,7 +81,11 @@ export default function NewsDetail() {
           <div className="flex flex-wrap items-center gap-6 mb-8 text-xs font-bold uppercase tracking-widest text-slate-500">
             <span className="flex items-center gap-2 text-amber-600">
               <CalendarDays size={14} />
-              {newsItem.date}
+              {new Date(newsItem.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
             </span>
           </div>
 
@@ -81,56 +98,21 @@ export default function NewsDetail() {
           </p>
         </div>
 
-        {/* Formal Photo Grid - Replacing Single Featured Image */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 h-auto lg:h-[600px]">
-          {/* Large Main Image */}
-          <div className="md:col-span-2 lg:col-span-2 lg:row-span-2 relative rounded-3xl overflow-hidden shadow-lg border border-slate-100 group">
-            <Image
-              src={newsItem.image}
-              alt={newsItem.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-              priority
-            />
-          </div>
-
-          {/* Secondary Vertical Image 1 */}
-          <div className="hidden md:block relative rounded-3xl overflow-hidden shadow-lg border border-slate-100 group lg:row-span-2">
-            <Image
-              src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=1000"
-              alt="Formal Session"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-
-          {/* Small Grid Images */}
-          <div className="grid grid-rows-2 gap-4 lg:col-span-1 lg:row-span-2">
-            <div className="relative rounded-3xl overflow-hidden shadow-lg border border-slate-100 group h-48 lg:h-auto">
-              <Image
-                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1000"
-                alt="Meeting"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-            <div className="relative rounded-3xl overflow-hidden shadow-lg border border-slate-100 group h-48 lg:h-auto">
-              <Image
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1000"
-                alt="Office"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-          </div>
+        {/* Featured Image */}
+        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-lg border border-slate-100 mb-16 group">
+          <Image
+            src={newsItem.image}
+            alt={newsItem.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            priority
+          />
         </div>
 
         {/* Article Content */}
         <div className="prose prose-lg prose-slate max-w-none mb-16 font-light text-slate-600 text-[18px] md:text-[24px]">
-          {/* Note: In a real app, this would probably be dangerous HTML or rich text. 
-                 Since we just have a summary for now, we'll repeat it as a placeholder for full content 
-                 to simulate a real article body. */}
-          <p>{newsItem.summary}</p>
+          {/* Use content if available, otherwise fallback to summary */}
+          <p>{newsItem.content || newsItem.summary}</p>
         </div>
 
         {/* External Link Card */}
@@ -159,64 +141,7 @@ export default function NewsDetail() {
 
         <hr className="border-slate-100 mb-16" />
 
-        {/* Related News */}
-        <div className="mb-20">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl font-bold text-slate-900">More Insights</h2>
-            <Link
-              href="/news"
-              className="text-xs font-bold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors hidden md:block"
-            >
-              View Archive
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {newsData.newsItems
-              .filter((item) => item.id !== newsItem.id)
-              .slice(0, 2)
-              .map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/news/${item.id}`}
-                  className="group block"
-                >
-                  <div className="bg-white rounded-[1rem] overflow-hidden border border-slate-100 hover:border-amber-200 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 h-full flex flex-col">
-                    <div className="relative h-48 w-full overflow-hidden">
-                      <Image
-                        src={item.image}
-                        alt={item.title}
-                        fill
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors duration-500"></div>
-                    </div>
-                    <div className="p-8 flex flex-col flex-grow">
-                      <div className="flex items-center gap-2 text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-3">
-                        <CalendarDays size={12} />
-                        <span>{item.date}</span>
-                      </div>
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors leading-tight mb-4 line-clamp-2">
-                        {item.title}
-                      </h3>
-
-                      <div className="mt-auto flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-widest group-hover:text-slate-900 transition-colors">
-                        Read Now <ArrowLeft className="rotate-180" size={12} />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-          </div>
-          <div className="mt-8 text-center md:hidden">
-            <Link
-              href="/news"
-              className="text-xs font-bold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors"
-            >
-              View Archive
-            </Link>
-          </div>
-        </div>
+        {/* Related News removed as per request to show only one image */}
       </div>
     </main>
   );

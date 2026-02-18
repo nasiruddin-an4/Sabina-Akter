@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
-export default function ContactClient() {
+export default function ContactClient({ siteInfo }) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -121,41 +121,42 @@ export default function ContactClient() {
 
                   <div className="space-y-8">
                     {/* Email */}
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                        <Mail size={20} className="text-amber-400" />
+                    {(siteInfo?.email || !siteInfo) && (
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                          <Mail size={20} className="text-amber-400" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            Email
+                          </p>
+                          <a
+                            href={`mailto:${siteInfo?.email || "contact@sabinaakter.com"}`}
+                            className="text-white hover:text-amber-400 transition-colors"
+                          >
+                            {siteInfo?.email || "contact@sabinaakter.com"}
+                          </a>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                          Email
-                        </p>
-                        <a
-                          href="mailto:contact@sabinaakter.com"
-                          className="text-white hover:text-amber-400 transition-colors"
-                        >
-                          contact@sabinaakter.com
-                        </a>
-                      </div>
-                    </div>
+                    )}
 
                     {/* Office */}
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                        <MapPin size={20} className="text-amber-400" />
+                    {(siteInfo?.address || !siteInfo) && (
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                          <MapPin size={20} className="text-amber-400" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                            Office
+                          </p>
+                          <p className="text-white leading-relaxed whitespace-pre-line">
+                            {siteInfo?.address ||
+                              "Level 6, 59 & 61, South Avenue,\nLotus Kamal Tower-2, Gulshan Ave,\nDhaka 1212."}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                          Office
-                        </p>
-                        <p className="text-white leading-relaxed">
-                          Level 6, 59 &amp; 61, South Avenue,
-                          <br />
-                          Lotus Kamal Tower-2, Gulshan Ave,
-                          <br />
-                          Dhaka 1212.
-                        </p>
-                      </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* Quote */}

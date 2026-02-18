@@ -2,66 +2,62 @@
 
 import { useInView } from "react-intersection-observer";
 
-const roles = [
-  {
-    title: "Chairperson",
-    organization: "Betopia Group",
-    period: "2018 - Present",
-    description:
-      "Leading the conglomerate's strategic vision, overseeing multiple subsidiaries across IT, Education, and Media sectors.",
-  },
-  {
-    title: "Co-Founder",
-    organization: "Bdcalling IT Ltd.",
-    period: "2016 - Present",
-    description:
-      "Spearheaded the growth of one of the largest IT firms, focusing on creating employment opportunities for youth and women.",
-  },
-  {
-    title: "Director",
-    organization: "Bdcalling Academy",
-    period: "2019 - Present",
-    description:
-      "Driving skill development initiatives to bridge the gap between academic knowledge and industry requirements.",
-  },
-];
-
-const achievements = [
-  {
-    title: "Women Business Leader Award",
-    organization: "Global Business Summit",
-    year: "2023",
-    color: "text-yellow-600",
-    bg: "bg-yellow-50",
-  },
-  {
-    title: "Best IT Entrepreneur",
-    organization: "Tech Innovation Awards",
-    year: "2022",
-    color: "text-blue-600",
-    bg: "bg-blue-50",
-  },
-  {
-    title: "Employment Creator of the Year",
-    organization: "National SME Foundation",
-    year: "2021",
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-  },
-  {
-    title: "Excellence in Digital Innovation",
-    organization: "Future Tech Forum",
-    year: "2020",
-    color: "text-purple-600",
-    bg: "bg-purple-50",
-  },
-];
-
-export default function ProfessionalAchievements() {
+export default function ProfessionalAchievements({ data }) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  // Fallback defaults
+  const content = data || {
+    roles: [
+      {
+        title: "Chairperson",
+        organization: "Betopia Group",
+        period: "2018 - Present",
+        description:
+          "Leading the conglomerate's strategic vision, overseeing multiple subsidiaries across IT, Education, and Media sectors.",
+      },
+      {
+        title: "Co-Founder",
+        organization: "Bdcalling IT Ltd.",
+        period: "2016 - Present",
+        description:
+          "Spearheaded the growth of one of the largest IT firms, focusing on creating employment opportunities for youth and women.",
+      },
+      {
+        title: "Director",
+        organization: "Bdcalling Academy",
+        period: "2019 - Present",
+        description:
+          "Driving skill development initiatives to bridge the gap between academic knowledge and industry requirements.",
+      },
+    ],
+    achievements: [
+      {
+        title: "Women Business Leader Award",
+        organization: "Global Business Summit",
+        year: "2023",
+      },
+      {
+        title: "Best IT Entrepreneur",
+        organization: "Tech Innovation Awards",
+        year: "2022",
+      },
+      {
+        title: "Employment Creator of the Year",
+        organization: "National SME Foundation",
+        year: "2021",
+      },
+      {
+        title: "Excellence in Digital Innovation",
+        organization: "Future Tech Forum",
+        year: "2020",
+      },
+    ],
+  };
+
+  const { roles, achievements } = content;
 
   return (
     <section ref={ref} className="py-24 bg-slate-50 relative">

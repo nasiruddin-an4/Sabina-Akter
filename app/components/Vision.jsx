@@ -1,19 +1,25 @@
 "use client";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
-import {
-  FaUsers,
-  FaRocket,
-  FaHandHoldingHeart,
-  FaBullseye,
-} from "react-icons/fa";
+import { FaBullseye } from "react-icons/fa";
 import Image from "next/image";
 
-export default function Vision() {
+export default function Vision({ data }) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.3,
   });
+
+  const content = data || {
+    visionTag: "Vision 2030",
+    titlePrefix: "Empowering",
+    titleHighlight: "30,000 Talent",
+    titleSuffix: "Within 2030",
+    description:
+      "A future-ready metropolis of innovation and entrepreneurship. By 2030, our goal is to empower 30,000 Talents, creating a sustainable ecosystem where human potential meets global opportunity.",
+    count: 30,
+    backgroundImage: "https://i.postimg.cc/3xcL8VRr/betopiaCity.png",
+  };
 
   return (
     <section
@@ -23,8 +29,11 @@ export default function Vision() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
-          src="https://i.postimg.cc/3xcL8VRr/betopiaCity.png"
-          alt="Betopia City Vision"
+          src={
+            content.backgroundImage ||
+            "https://i.postimg.cc/3xcL8VRr/betopiaCity.png"
+          }
+          alt="Vision Background"
           fill
           className="object-cover opacity-40 mix-blend-luminosity"
           priority
@@ -44,26 +53,23 @@ export default function Vision() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-lg">
               <FaBullseye className="text-gold" />
               <span className="text-xs font-bold tracking-[0.2em] text-white uppercase">
-                Vision 2030
+                {content.visionTag}
               </span>
             </div>
 
             <h2 className="text-5xl lg:text-7xl font-bold leading-tight drop-shadow-2xl">
-              Empowering <br />
+              {content.titlePrefix} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">
-                30,000 Talent
+                {content.titleHighlight}
               </span>{" "}
               <br />
               <span className="text-4xl lg:text-6xl text-white">
-                Within 2030
+                {content.titleSuffix}
               </span>
             </h2>
 
             <p className="text-lg text-slate-300 font-light leading-relaxed max-w-lg drop-shadow-md">
-              A future-ready metropolis of innovation and entrepreneurship. By
-              2030, our goal is to empower <strong>30,000 Talents</strong>,
-              creating a sustainable ecosystem where human potential meets
-              global opportunity.
+              {content.description}
             </p>
 
             <div className="pt-8 w-full max-w-sm">
@@ -93,7 +99,11 @@ export default function Vision() {
                   Impact Goal
                 </span>
                 <div className="text-9xl font-bold text-white mb-4 font-sans tracking-tighter drop-shadow-lg">
-                  {inView ? <CountUp end={30} duration={3} /> : "0"}
+                  {inView ? (
+                    <CountUp end={content.count || 30} duration={3} />
+                  ) : (
+                    "0"
+                  )}
                   <span className="text-teal-400">k</span>
                 </div>
                 <span className="text-xs font-bold px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full border border-teal-500/30">

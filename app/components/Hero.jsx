@@ -6,18 +6,44 @@ import {
   FaFacebookF,
   FaYoutube,
   FaTwitter,
+  FaGlobe,
+  FaInstagram,
 } from "react-icons/fa";
 
-export default function Hero() {
-  const socials = [
-    { icon: FaFacebookF, link: "https://www.facebook.com/sabina.bdcalling/" },
-    {
-      icon: FaLinkedinIn,
-      link: "https://www.linkedin.com/company/betopiagroup/posts/?feedView=all",
-    },
-    { icon: FaYoutube, link: "https://www.youtube.com/@BetopiaGroup" },
-    { icon: FaTwitter, link: "https://twitter.com/yourprofile" },
-  ];
+export default function Hero({ data, siteInfo }) {
+  // Fallback defaults if data is missing (prevents crash before DB is ready)
+  const content = data || {
+    titlePrefix: "Empowering",
+    titleHighlight: "People Through",
+    titleSuffix: "Innovation.",
+    description:
+      "Sabina Akter represents the new era of leadership—combining grace with grit.",
+    image: "/chairman_betopia.webp",
+    socials: [],
+  };
+
+  const iconMap = {
+    facebook: FaFacebookF,
+    linkedin: FaLinkedinIn,
+    youtube: FaYoutube,
+    twitter: FaTwitter,
+    instagram: FaInstagram,
+  };
+
+  // Generate socials from siteInfo
+  const socials = [];
+  if (siteInfo?.facebook)
+    socials.push({ platform: "facebook", link: siteInfo.facebook });
+  if (siteInfo?.twitter)
+    socials.push({ platform: "twitter", link: siteInfo.twitter });
+  if (siteInfo?.linkedin)
+    socials.push({ platform: "linkedin", link: siteInfo.linkedin });
+  if (siteInfo?.youtube)
+    socials.push({ platform: "youtube", link: siteInfo.youtube });
+  if (siteInfo?.instagram)
+    socials.push({ platform: "instagram", link: siteInfo.instagram });
+
+  const displaySocials = socials.length > 0 ? socials : content.socials || [];
 
   return (
     <section className="relative w-full min-h-dvh px-0 md:px-6 md:h-screen lg:h-[90vh] h-auto pt-10 pb-12 lg:pt-32 lg:pb-0 overflow-hidden bg-white flex flex-col justify-center">
@@ -43,7 +69,7 @@ export default function Hero() {
 
           <div className="relative h-full w-[98%] lg:w-full rounded-[3rem] overflow-hidden">
             <Image
-              src="/chairman_betopia.webp"
+              src={content.image || "/chairman_betopia.webp"}
               alt="Sabina Akter - Chairperson"
               fill
               className="object-cover object-top"
@@ -60,13 +86,13 @@ export default function Hero() {
           {/* Heading */}
           <div className="space-y-6 text-center lg:text-left">
             <h1 className="text-4xl md:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight">
-              Empowering <br />
+              {content.titlePrefix} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-600">
-                People Through
+                {content.titleHighlight}
               </span>{" "}
               <br />
               <span className="font-black text-rose-500 relative italic tracking-wider">
-                Innovation.
+                {content.titleSuffix}
                 <svg
                   className="absolute -bottom-2 lg:-bottom-2 left-0 w-full h-3 text-gold/20"
                   viewBox="0 0 100 10"
@@ -82,19 +108,22 @@ export default function Hero() {
               </span>
             </h1>
             <p className="text-md md:text-lg text-slate-600 max-w-lg leading-relaxed mx-auto lg:mx-0">
-              <strong className="text-slate-900 font-semibold">
-                Sabina Akter
-              </strong>{" "}
-              represents the new era of leadership—combining grace with grit.
-              She is dedicated to empowering women and youth, building
-              sustainable ecosystems, and driving national growth through the{" "}
-              <Link
-                href="https://betopiagroup.com/"
-                target="_blank"
-                className="text-navy-900 font-medium"
-              >
-                Betopia Group.
-              </Link>
+              {content.description
+                ?.split(/(Betopia Group)/gi)
+                .map((part, index) =>
+                  part.toLowerCase() === "betopia group" ? (
+                    <a
+                      key={index}
+                      href="https://betopiagroup.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {part}
+                    </a>
+                  ) : (
+                    part
+                  ),
+                )}
             </p>
           </div>
 
@@ -107,17 +136,20 @@ export default function Hero() {
               Connect With Me
             </a>
             <div className="flex gap-4 lg:border-l border-slate-200 lg:pl-8">
-              {socials.map((item, idx) => (
-                <a
-                  key={idx}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-500 hover:text-gold hover:border-gold transition-all duration-300 shadow-sm hover:shadow-md"
-                >
-                  <item.icon size={14} />
-                </a>
-              ))}
+              {displaySocials.map((item, idx) => {
+                const Icon = iconMap[item.platform.toLowerCase()] || FaGlobe;
+                return (
+                  <a
+                    key={idx}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-500 hover:text-gold hover:border-gold transition-all duration-300 shadow-sm hover:shadow-md"
+                  >
+                    <Icon size={14} />
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
